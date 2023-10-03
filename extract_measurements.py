@@ -97,13 +97,13 @@ def calc_measure(cp, vertex,height):#, facet):
 #  print("measure list = ",float(height)*(measure_list/measure_list[0])) 
   measure_list[8] = measure_list[8] * 0.36#reducing the error in measurement added due to unarranged vertices
   measure_list[3] = measure_list[3] * 0.6927
-#  print("measure list = ",float(height)*(measure_list/measure_list[0]))
+# print("measure list = ",float(height)*(measure_list/measure_list[0]))
 #  measure_list = float(height)*(measure_list/measure_list[0])
   return np.array(measure_list).reshape(utils.M_NUM, 1)
 
 
 ##added code: extract body measurements given a .obj model in data.
-def extract_measurements(height, vertices):
+def extract_measurements(height, vertices, output_path):
   genders = ["male"]#, "male"]
   measure = []
   for gender in genders:
@@ -114,16 +114,25 @@ def extract_measurements(height, vertices):
     #calculte + convert
     measure = calc_measure(cp, vertices, height)
 
+    parsed_output_path=output_path
+
+    if(parsed_output_path[-1]!='/'):
+        parsed_output_path+='/'
 
     #give body measurements one by one
+    measures_obj={}
     for i in range(0, utils.M_NUM):
-      print("%s: %f" % (utils.M_STR[i], measure[i]))
-    
-    
+      measures_obj[utils.M_STR[i]]=measure[i][0]
+    print(measures_obj)  
+    json_measurements_name = parsed_output_path+'test.json'
+    with open(json_measurements_name, 'w') as fp:
+        stringified=str(measures_obj).replace("'",'"')
+        fp.write(stringified)
     
     face_path = './src/tf_smpl/smpl_faces.npy'
     faces = np.load(face_path)
-    obj_mesh_name = 'test.obj'
+  
+    obj_mesh_name = parsed_output_path+'test.obj'
     with open(obj_mesh_name, 'w') as fp:
         for v in vertices:
             fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )

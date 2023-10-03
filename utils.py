@@ -2,8 +2,8 @@ import numpy as np
 
 
 MODEL_DIR = "../release_model"
-V_NUM = 6890#12500
-F_NUM = 13776#25000
+V_NUM = 12500
+F_NUM = 25000
 M_NUM = 11#19
 D_BASIS_NUM = 10
 V_BASIS_NUM = 10

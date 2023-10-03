@@ -111,7 +111,8 @@ def label_to_color_image(label):
 
 
 parser = argparse.ArgumentParser(description='Deeplab Segmentation')
-parser.add_argument('-i', '--input_dir', type=str, required=True,help='Directory to save the output results. (required)')
+parser.add_argument('-i', '--input_dir', type=str, required=True,help='Path to image (required)')
+parser.add_argument('-o', '--output_dir', type=str, required=True,help='Output directory (required)')
 parser.add_argument('-ht', '--height', type=int, required=True,help='Directory to save the output results. (required)')
 
 args=parser.parse_args()
@@ -214,7 +215,7 @@ bg_removed = res + (255 - cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR))
 #config.batch_size = 1
 
 #cv2.imwrite(dir_name.replace('img','back'),remove_bg)
-main(bg_removed,args.height,None)
+main(bg_removed,args.height,args.output_dir,None)
 #name= dir_name.replace('img','masksDL')
 #cv2.imwrite(name,(255*mask_sel).astype(np.uint8))
 #cv2.imwrite(dir_name.replace('img','back'),back_align)

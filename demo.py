@@ -118,7 +118,7 @@ def preprocess_image(img_path, json_path=None):
     return crop, proc_param, img
 
 
-def main(img_path, height, json_path=None):
+def main(img_path, height, output_path, json_path=None):
 #    renderer = vis_util.SMPLRenderer(face_path='src/tf_smpl/smpl_faces.npy')
     sess = tf.Session()
     model = RunModel(sess=sess)
@@ -145,7 +145,7 @@ def main(img_path, height, json_path=None):
 #    obj_mesh_name = 'test.obj'
 
     
-    extract_measurements.extract_measurements(height,verts[0])
+    extract_measurements.extract_measurements(height,verts[0],output_path)
 
     
     
